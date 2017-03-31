@@ -1,0 +1,36 @@
+{
+  "name": "textoverlay",
+  "version": "0.0.0",
+  "description": "Simple decorator for textarea elements",
+  "main": "lib/textoverlay.js",
+  "scripts": {
+    "build": "yarn run clean && run-p build:*",
+    "build:dist": "webpack && uglifyjs dist/bundle.js -o dist/bundle.min.js --source-map dist/bundle.min.js.map",
+    "build:lib": "babel src -d lib -s",
+    "clean": "rm -fr dist lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuku-t/textoverlay.git"
+  },
+  "author": "Yuku Takahashi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yuku-t/textoverlay/issues"
+  },
+  "homepage": "https://github.com/yuku-t/textoverlay#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-eslint": "^7.2.1",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-env": "^1.3.2",
+    "eslint": "^3.19.0",
+    "eslint-plugin-flowtype": "^2.30.4",
+    "flow-bin": "^0.42.0",
+    "npm-run-all": "^4.0.2",
+    "uglify-js": "^2.8.20",
+    "webpack": "^2.3.2"
+  }
+}
