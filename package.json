@@ -10,7 +10,7 @@
     "build:docs:html": "pug src/docs --out docs",
     "build:docs:js": "webpack --config webpack.config.docs.js",
     "build:lib": "babel src -d lib -s && rm -fr lib/docs",
-    "clean": "rm -fr dist docs lib",
+    "clean": "rm -fr dist docs/*.* lib",
     "dev": "run-p dev:*",
     "dev:docs": "run-p dev:docs:*",
     "dev:docs:html": "pug src/docs --out docs --watch",
