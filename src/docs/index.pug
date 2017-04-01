@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no")
+    title Textoverlay: Simple decorator for textarea elements
+    meta(name="description" content="Simple decorator for textarea elements")
+    meta(property="og:title" content="Textoverlay")
+    meta(property="og:description" content="Simple decorator for textarea elements")
+    link(rel="stylesheet" href="bundle.css")
+    script(src="bundle.js")
+  body
+    .jumbotron.jumbotron-fluid
+      .container
+        .row
+          .col-md-8.offset-md-2
+            h1.display-3 Textoverlay
+            p.lead Simple decorator for textarea elements.
+    .container
+      .row
+        .col-md-8.offset-md-2
+          section.mb-4
+            h2 Demo
+            textarea#textarea.form-control(rows="3")
+              | Hey @guys,
+              | All words start with @ are emphasized like @this.
+            pre.mt-1
+              code#code.javascript
+                | new Textoverlay(document.getElementById("textarea"), [
+                |   {
+                |     match: /\B@\w+/g,
+                |     css: { "background-color": "#d8dfea" }
+                |   },
+                |   {
+                |     match: /e\w{8}d/g,
+                |     css: { "background-color": "#cc9393" }
+                |   }
+                | ]);
+          section.mb-4
+            h2 Installation
+            pre
+              code.bash
+                | npm install textoverlay
+          section.mb-4
+            h2 License
+            p Textoverlay is released under the <a href="https://github.com/yuku-t/textoverlay/blob/master/LICENSE">MIT</a> Lisence.
+          section.mb-4
+            h2 Links
+            ul
+              li
+                a(href="https://github.com/yuku-t/textoverlay") GitHub repository

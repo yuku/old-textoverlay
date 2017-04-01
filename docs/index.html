@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Textoverlay: Simple decorator for textarea elements</title><meta name="description" content="Simple decorator for textarea elements"><meta property="og:title" content="Textoverlay"><meta property="og:description" content="Simple decorator for textarea elements"><link rel="stylesheet" href="bundle.css"><script src="bundle.js"></script></head><body><div class="jumbotron jumbotron-fluid"><div class="container"><div class="row"><div class="col-md-8 offset-md-2"><h1 class="display-3">Textoverlay</h1><p class="lead">Simple decorator for textarea elements.</p></div></div></div></div><div class="container"><div class="row"><div class="col-md-8 offset-md-2"><section class="mb-4"><h2>Demo</h2><textarea class="form-control" id="textarea" rows="3">Hey @guys,
+All words start with @ are emphasized like @this.</textarea><pre class="mt-1"><code class="javascript" id="code">new Textoverlay(document.getElementById("textarea"), [
+  {
+    match: /\B@\w+/g,
+    css: { "background-color": "#d8dfea" }
+  },
+  {
+    match: /e\w{8}d/g,
+    css: { "background-color": "#cc9393" }
+  }
+]);</code></pre></section><section class="mb-4"><h2>Installation</h2><pre><code class="bash">npm install textoverlay</code></pre></section><section class="mb-4"><h2>License</h2><p>Textoverlay is released under the <a href="https://github.com/yuku-t/textoverlay/blob/master/LICENSE">MIT</a> Lisence.</p></section><section class="mb-4"><h2>Links</h2><ul><li><a href="https://github.com/yuku-t/textoverlay">GitHub repository</a></li></ul></section></div></div></div></body></html>
