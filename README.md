@@ -24,7 +24,6 @@ new Textoverlay(document.getElementById("textarea"), [
 ## Installation
 
 ```bash
-
 npm install textoverlay
 ```
 
