@@ -180,9 +180,35 @@ export default class Textoverlay {
 
   /**
    * Update contents of textoverlay
+   *
+   * @private
    */
   update() {
-    const nodes = this.strategies.reduce((ns: Node[], strategy) => {
+    // Remove all child nodes from overlay.
+    while (this.overlay.firstChild) {
+      this.overlay.removeChild(this.overlay.firstChild);
+    }
+
+    this.computeOverlayNodes().forEach(node => this.overlay.appendChild(node));
+  }
+
+  /**
+   * Sync scroll and size of textarea
+   *
+   * @private
+   */
+  sync() {
+    setStyle(this.overlay, {
+      top: `${this.textareaBorderTop - this.textarea.scrollTop}px`,
+    });
+    setStyle(this.wrapper, getStyle(this.textarea, properties.wrapperSize));
+  }
+
+  /**
+   * @private
+   */
+  computeOverlayNodes(): Node[] {
+    return this.strategies.reduce((ns: Node[], strategy) => {
       const highlight = document.createElement("span");
       setStyle(highlight, strategy.css);
       return flatten(ns.map(node => {
@@ -204,23 +230,6 @@ export default class Textoverlay {
         return resp;
       }));
     }, [new Text(this.textarea.value)]);
-
-    // Remove all child nodes from overlay.
-    while (this.overlay.firstChild) {
-      this.overlay.removeChild(this.overlay.firstChild);
-    }
-
-    nodes.forEach(node => this.overlay.appendChild(node));
-  }
-
-  /**
-   * Sync scroll and size of textarea
-   */
-  sync() {
-    setStyle(this.overlay, {
-      top: `${this.textareaBorderTop - this.textarea.scrollTop}px`,
-    });
-    setStyle(this.wrapper, getStyle(this.textarea, properties.wrapperSize));
   }
 
   handleInput() {

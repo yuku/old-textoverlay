@@ -242,6 +242,8 @@ var Textoverlay = function () {
 
     /**
      * Update contents of textoverlay
+     *
+     * @private
      */
 
   }, {
@@ -249,7 +251,39 @@ var Textoverlay = function () {
     value: function update() {
       var _this = this;
 
-      var nodes = this.strategies.reduce(function (ns, strategy) {
+      // Remove all child nodes from overlay.
+      while (this.overlay.firstChild) {
+        this.overlay.removeChild(this.overlay.firstChild);
+      }
+
+      this.computeOverlayNodes().forEach(function (node) {
+        return _this.overlay.appendChild(node);
+      });
+    }
+
+    /**
+     * Sync scroll and size of textarea
+     *
+     * @private
+     */
+
+  }, {
+    key: "sync",
+    value: function sync() {
+      (0, _setStyle2.default)(this.overlay, {
+        top: this.textareaBorderTop - this.textarea.scrollTop + "px"
+      });
+      (0, _setStyle2.default)(this.wrapper, (0, _getStyle2.default)(this.textarea, properties.wrapperSize));
+    }
+
+    /**
+     * @private
+     */
+
+  }, {
+    key: "computeOverlayNodes",
+    value: function computeOverlayNodes() {
+      return this.strategies.reduce(function (ns, strategy) {
         var highlight = document.createElement("span");
         (0, _setStyle2.default)(highlight, strategy.css);
         return (0, _flatten2.default)(ns.map(function (node) {
@@ -273,28 +307,6 @@ var Textoverlay = function () {
           return resp;
         }));
       }, [new Text(this.textarea.value)]);
-
-      // Remove all child nodes from overlay.
-      while (this.overlay.firstChild) {
-        this.overlay.removeChild(this.overlay.firstChild);
-      }
-
-      nodes.forEach(function (node) {
-        return _this.overlay.appendChild(node);
-      });
-    }
-
-    /**
-     * Sync scroll and size of textarea
-     */
-
-  }, {
-    key: "sync",
-    value: function sync() {
-      (0, _setStyle2.default)(this.overlay, {
-        top: this.textareaBorderTop - this.textarea.scrollTop + "px"
-      });
-      (0, _setStyle2.default)(this.wrapper, (0, _getStyle2.default)(this.textarea, properties.wrapperSize));
     }
   }, {
     key: "handleInput",
