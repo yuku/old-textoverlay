@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/main.js"],"names":["global","Textoverlay"],"mappings":";;AAAA;;;;;;AAEAA,OAAOC,WAAP","file":"main.js","sourcesContent":["import Textoverlay from \"./textoverlay\";\n\nglobal.Textoverlay = Textoverlay;\n"]}
