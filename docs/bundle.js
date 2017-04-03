@@ -204,6 +204,7 @@ var Textoverlay = function () {
       attributeFilter: ["style"]
     });
 
+    this.wrapperDisplay = (0, _getStyle2.default)(this.wrapper, ["display"])["display"];
     this.render();
   }
 
@@ -273,7 +274,8 @@ var Textoverlay = function () {
       (0, _setStyle2.default)(this.overlay, {
         top: this.textareaBorderTop - this.textarea.scrollTop + "px"
       });
-      (0, _setStyle2.default)(this.wrapper, (0, _getStyle2.default)(this.textarea, properties.wrapperSize));
+      var props = this.wrapperDisplay === "block" ? ["height"] : ["height", "width"];
+      (0, _setStyle2.default)(this.wrapper, (0, _getStyle2.default)(this.textarea, props));
     }
 
     /**
