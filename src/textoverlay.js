@@ -89,6 +89,7 @@ export default class Textoverlay {
   strategies: Strategy[];
   textareaBorderTop: number;
   observer: MutationObserver;
+  wrapperDisplay: string;
 
   overlay: HTMLDivElement;
   textarea: HTMLTextAreaElement;
@@ -149,6 +150,7 @@ export default class Textoverlay {
       attributeFilter: ["style"],
     });
 
+    this.wrapperDisplay = getStyle(this.wrapper, ["display"])["display"];
     this.render();
   }
 
@@ -201,7 +203,8 @@ export default class Textoverlay {
     setStyle(this.overlay, {
       top: `${this.textareaBorderTop - this.textarea.scrollTop}px`,
     });
-    setStyle(this.wrapper, getStyle(this.textarea, properties.wrapperSize));
+    const props = this.wrapperDisplay === "block" ? ["height"] : ["height", "width"];
+    setStyle(this.wrapper, getStyle(this.textarea, props));
   }
 
   /**

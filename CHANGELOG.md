@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Fixed
+- Adjust wrapper size correctly
 
 ## [0.1.1] - 2017-04-03
 ### Fixed
