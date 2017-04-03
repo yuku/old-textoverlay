@@ -12,8 +12,6 @@ import getStyle from "./utils/getStyle";
 const css = {
   wrapper: {
     "box-sizing": "border-box",
-    margin: "0px",
-    padding: "0px",
     overflow: "hidden",
   },
   overlay: {
@@ -32,6 +30,8 @@ const css = {
     outline: "none",
     position: "relative",
     height: "100%",
+    width: "100%",
+    margin: "0px",
   },
 };
 
@@ -39,6 +39,7 @@ const properties = {
   wrapper: [
     "background",
     "display",
+    "margin",
   ],
   wrapperSize: [
     "height",
@@ -49,14 +50,7 @@ const properties = {
     "font-size",
     "font-weight",
     "line-height",
-    "margin-bottom",
-    "margin-left",
-    "margin-right",
-    "margin-top",
-    "padding-bottom",
-    "padding-left",
-    "padding-right",
-    "padding-top",
+    "padding",
   ],
   overlayBorder: [
     "border-bottom-width",
