@@ -37,6 +37,7 @@ const css = {
 
 const properties = {
   wrapper: [
+    "background",
     "display",
   ],
   wrapperSize: [
@@ -44,7 +45,6 @@ const properties = {
     "width",
   ],
   overlay: [
-    "background-color",
     "font-family",
     "font-size",
     "font-weight",

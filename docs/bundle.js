@@ -127,9 +127,9 @@ var css = {
 };
 
 var properties = {
-  wrapper: ["display"],
+  wrapper: ["background", "display"],
   wrapperSize: ["height", "width"],
-  overlay: ["background-color", "font-family", "font-size", "font-weight", "line-height", "margin-bottom", "margin-left", "margin-right", "margin-top", "padding-bottom", "padding-left", "padding-right", "padding-top"],
+  overlay: ["font-family", "font-size", "font-weight", "line-height", "margin-bottom", "margin-left", "margin-right", "margin-top", "padding-bottom", "padding-left", "padding-right", "padding-top"],
   overlayBorder: ["border-bottom-width", "border-left-width", "border-right-width", "border-top-width"]
 };
 
