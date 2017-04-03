@@ -16,12 +16,13 @@ const css = {
   },
   overlay: {
     "box-sizing": "border-box",
+    "border-color": "transparent",
+    "border-style": "solid",
     color: "transparent",
     position: "absolute",
     "white-space": "pre-wrap",
     "word-wrap": "break-word",
     overflow: "hidden",
-    top: "0px",
     width: "100%",
   },
   textarea: {
@@ -41,37 +42,15 @@ const properties = {
     "display",
     "margin",
   ],
-  wrapperSize: [
-    "height",
-    "width",
-  ],
   overlay: [
     "font-family",
     "font-size",
     "font-weight",
     "line-height",
     "padding",
-  ],
-  overlayBorder: [
-    "border-bottom-width",
-    "border-left-width",
-    "border-right-width",
-    "border-top-width",
+    "border-width",
   ],
 };
-
-function merge(base: { [string]: string }, target: { [string]: string }) {
-  properties.overlayBorder.forEach(property => {
-    const borderWidth = parseInt(target[property], 10);
-    const match = property.match(/top|bottom|left|right/);
-    if (match) {
-      const padding = `padding-${match[0]}`;
-      const paddingWidth = parseInt(base[padding], 10);
-      base[padding] = `${paddingWidth + borderWidth}px`;
-    }
-  });
-  return base;
-}
 
 export type Strategy = {
   match: RegExp;
@@ -81,7 +60,6 @@ export type Strategy = {
 export default class Textoverlay {
   origStyle: { [string]: string };
   strategies: Strategy[];
-  textareaBorderTop: number;
   observer: MutationObserver;
   wrapperDisplay: string;
 
@@ -109,9 +87,8 @@ export default class Textoverlay {
   static createOverlay(textarea: HTMLTextAreaElement, wrapper: HTMLDivElement) {
     const overlay = document.createElement("div");
     overlay.className = "textoverlay";
-    const borders = getStyle(textarea, properties.overlayBorder);
 
-    setStyle(overlay, Object.assign({}, css.overlay, merge(getStyle(textarea, properties.overlay), borders)));
+    setStyle(overlay, Object.assign({}, css.overlay, getStyle(textarea, properties.overlay)));
     wrapper.insertBefore(overlay, textarea);
     return overlay;
   }
@@ -131,7 +108,6 @@ export default class Textoverlay {
     this.textarea = textarea;
 
     this.strategies = strategies;
-    this.textareaBorderTop = parseInt(getStyle(textarea, ["border-top-width"])["border-top-width"], 10);
 
     this.handleInput = this.handleInput.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
@@ -194,9 +170,7 @@ export default class Textoverlay {
    * @private
    */
   sync() {
-    setStyle(this.overlay, {
-      top: `${this.textareaBorderTop - this.textarea.scrollTop}px`,
-    });
+    setStyle(this.overlay, { top: `${-this.textarea.scrollTop}px` });
     const props = this.wrapperDisplay === "block" ? ["height"] : ["height", "width"];
     setStyle(this.wrapper, getStyle(this.textarea, props));
   }

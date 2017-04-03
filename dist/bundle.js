@@ -107,12 +107,13 @@ var css = {
   },
   overlay: {
     "box-sizing": "border-box",
+    "border-color": "transparent",
+    "border-style": "solid",
     color: "transparent",
     position: "absolute",
     "white-space": "pre-wrap",
     "word-wrap": "break-word",
     overflow: "hidden",
-    top: "0px",
     width: "100%"
   },
   textarea: {
@@ -128,23 +129,8 @@ var css = {
 
 var properties = {
   wrapper: ["background", "display", "margin"],
-  wrapperSize: ["height", "width"],
-  overlay: ["font-family", "font-size", "font-weight", "line-height", "padding"],
-  overlayBorder: ["border-bottom-width", "border-left-width", "border-right-width", "border-top-width"]
+  overlay: ["font-family", "font-size", "font-weight", "line-height", "padding", "border-width"]
 };
-
-function merge(base, target) {
-  properties.overlayBorder.forEach(function (property) {
-    var borderWidth = parseInt(target[property], 10);
-    var match = property.match(/top|bottom|left|right/);
-    if (match) {
-      var padding = "padding-" + match[0];
-      var paddingWidth = parseInt(base[padding], 10);
-      base[padding] = paddingWidth + borderWidth + "px";
-    }
-  });
-  return base;
-}
 
 var Textoverlay = function () {
   _createClass(Textoverlay, null, [{
@@ -166,9 +152,8 @@ var Textoverlay = function () {
     value: function createOverlay(textarea, wrapper) {
       var overlay = document.createElement("div");
       overlay.className = "textoverlay";
-      var borders = (0, _getStyle2.default)(textarea, properties.overlayBorder);
 
-      (0, _setStyle2.default)(overlay, Object.assign({}, css.overlay, merge((0, _getStyle2.default)(textarea, properties.overlay), borders)));
+      (0, _setStyle2.default)(overlay, Object.assign({}, css.overlay, (0, _getStyle2.default)(textarea, properties.overlay)));
       wrapper.insertBefore(overlay, textarea);
       return overlay;
     }
@@ -191,7 +176,6 @@ var Textoverlay = function () {
     this.textarea = textarea;
 
     this.strategies = strategies;
-    this.textareaBorderTop = parseInt((0, _getStyle2.default)(textarea, ["border-top-width"])["border-top-width"], 10);
 
     this.handleInput = this.handleInput.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
@@ -271,9 +255,7 @@ var Textoverlay = function () {
   }, {
     key: "sync",
     value: function sync() {
-      (0, _setStyle2.default)(this.overlay, {
-        top: this.textareaBorderTop - this.textarea.scrollTop + "px"
-      });
+      (0, _setStyle2.default)(this.overlay, { top: -this.textarea.scrollTop + "px" });
       var props = this.wrapperDisplay === "block" ? ["height"] : ["height", "width"];
       (0, _setStyle2.default)(this.wrapper, (0, _getStyle2.default)(this.textarea, props));
     }
