@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Fixed
+- Transform `Object.assign` for IE support
 
 ## [0.1.3] - 2017-04-03
 ### Fixed
