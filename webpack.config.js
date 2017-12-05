@@ -28,12 +28,9 @@ const defaultConfig = {
   },
 };
 
-module.exports = function (env) {
-    if (!env) {
-      return defaultConfig;
-    }
-
-    if (env === "min") {
+module.exports = function(env) {
+  switch (env) {
+    case "min":
       return webpackMerge(defaultConfig, {
         output: {
           filename: "bundle.min.js",
@@ -67,7 +64,9 @@ module.exports = function (env) {
           }),
         ],
       });
-    }
+    default:
+      return defaultConfig;
+  }
 
-    throw `Unknown env ${env}`;
-  };
+  throw `Unknown env ${env}`;
+};
