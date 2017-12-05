@@ -189,8 +189,13 @@ export default class Textoverlay {
    */
   sync() {
     this.overlay.style.top = `${-this.textarea.scrollTop}px`;
-    const props = this.wrapperDisplay === "block" ? ["height"] : ["height", "width"];
-    this.copyTextareaStyle(this.wrapper, props);
+    // In IE11, dimensions returned by `getComputedStyle` do not take `box-sizing` into account.
+    // We use `getBoundingClientRect` instead as a workaround.
+    const boundingRect = this.wrapper.getBoundingClientRect();
+    this.wrapper.style.height = `${boundingRect.height}px`;
+    if (this.wrapperDisplay !== "block") {
+        this.wrapper.style.width = `${boundingRect.width}px`;
+    }
   }
 
   /**
