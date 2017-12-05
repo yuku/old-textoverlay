@@ -1793,10 +1793,6 @@ pre code {
   border-color: #5cb3fd;
   outline: none;
 }
-.form-control::-webkit-input-placeholder {
-  color: #636c72;
-  opacity: 1;
-}
 .form-control:-ms-input-placeholder {
   color: #636c72;
   opacity: 1;
@@ -3589,10 +3585,8 @@ tbody.collapse.show {
 }
 @media (min-width: 576px) {
   .card-columns {
-    -moz-column-count: 3;
-         column-count: 3;
-    -moz-column-gap: 1.25rem;
-         column-gap: 1.25rem;
+    column-count: 3;
+    column-gap: 1.25rem;
   }
   .card-columns .card {
     display: inline-block;

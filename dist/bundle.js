@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["Textoverlay"] = factory();
+	else
+		root["Textoverlay"] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -6,9 +16,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -32,9 +42,6 @@
 /******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
 /******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
@@ -63,7 +70,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,30 +84,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * textoverlay.js - Simple decorator for textarea elements
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @author Yuku Takahashi <taka84u9@gmil.com>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-var _flatten = __webpack_require__(3);
-
-var _flatten2 = _interopRequireDefault(_flatten);
-
-var _setStyle = __webpack_require__(5);
-
-var _setStyle2 = _interopRequireDefault(_setStyle);
-
-var _getStyle = __webpack_require__(4);
-
-var _getStyle2 = _interopRequireDefault(_getStyle);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * textoverlay.js - Simple decorator for textarea elements
+ *
+ * @author Yuku Takahashi <taka84u9@gmil.com>
+ * 
+ */
 
 var css = {
   wrapper: {
@@ -129,53 +122,31 @@ var css = {
   }
 };
 
+// Firefox does not provide shorthand properties in getComputedStyle, so we use the expanded ones here.
 var properties = {
-  wrapper: ["background", "display", "margin"],
-  overlay: ["font-family", "font-size", "font-weight", "line-height", "padding", "border-width"]
+  wrapper: ["background-attachment", "background-blend-mode", "background-clip", "background-color", "background-image", "background-origin", "background-position", "background-position-x", "background-position-y", "background-repeat", "background-size", "display", "margin-top", "margin-right", "margin-bottom", "margin-left"],
+  overlay: ["font-family", "font-size", "font-weight", "line-height", "padding-top", "padding-right", "padding-bottom", "padding-left", "border-top-width", "border-right-width", "border-bottom-width", "border-left-width"]
 };
 
 var Textoverlay = function () {
-  _createClass(Textoverlay, null, [{
-    key: "createWrapper",
-    value: function createWrapper(textarea, parentElement) {
-      var position = (0, _getStyle2.default)(textarea, ["position"]).position;
-      var wrapper = document.createElement("div");
-      wrapper.className = "textoverlay-wrapper";
-      (0, _setStyle2.default)(wrapper, _extends({}, (0, _getStyle2.default)(textarea, properties.wrapper), css.wrapper, {
-        position: position === "static" ? "relative" : position
-      }));
-      parentElement.insertBefore(wrapper, textarea);
-      parentElement.removeChild(textarea);
-      wrapper.appendChild(textarea);
-      return wrapper;
-    }
-  }, {
-    key: "createOverlay",
-    value: function createOverlay(textarea, wrapper) {
-      var overlay = document.createElement("div");
-      overlay.className = "textoverlay";
-
-      (0, _setStyle2.default)(overlay, _extends({}, css.overlay, (0, _getStyle2.default)(textarea, properties.overlay)));
-      wrapper.insertBefore(overlay, textarea);
-      return overlay;
-    }
-  }]);
-
   function Textoverlay(textarea, strategies) {
+    var _this = this;
+
     _classCallCheck(this, Textoverlay);
 
-    var parentElement = textarea.parentElement;
-    if (!parentElement) {
-      throw new Error("textarea must in DOM tree");
+    if (!textarea.parentElement) {
+      throw new Error("textarea must be in the DOM tree");
     }
-
-    this.origStyle = (0, _getStyle2.default)(textarea, Object.keys(css.textarea));
-
-    this.wrapper = Textoverlay.createWrapper(textarea, parentElement);
-    this.overlay = Textoverlay.createOverlay(textarea, this.wrapper);
-
-    (0, _setStyle2.default)(textarea, css.textarea);
     this.textarea = textarea;
+    this.textareaStyle = window.getComputedStyle(textarea);
+    this.createWrapper();
+    this.createOverlay();
+
+    this.textareaStyleWas = {};
+    Object.keys(css.textarea).forEach(function (key) {
+      _this.textareaStyleWas[key] = _this.textarea.style.getPropertyValue(key);
+    });
+    setStyle(this.textarea, css.textarea);
 
     this.strategies = strategies;
 
@@ -190,21 +161,48 @@ var Textoverlay = function () {
       attributeFilter: ["style"]
     });
 
-    this.wrapperDisplay = (0, _getStyle2.default)(this.wrapper, ["display"])["display"];
+    this.wrapperDisplay = this.wrapper.style.display;
     this.render();
   }
 
+  /**
+   * @protected
+   */
+
+
   _createClass(Textoverlay, [{
+    key: "createWrapper",
+    value: function createWrapper() {
+      this.wrapper = document.createElement("div");
+      this.wrapper.className = "textoverlay-wrapper";
+      setStyle(this.wrapper, css.wrapper);
+      this.wrapper.style.position = this.textareaStyle.position === "static" ? "relative" : this.textareaStyle.position;
+      var parentElement = this.textarea.parentElement;
+      parentElement.insertBefore(this.wrapper, this.textarea);
+      this.wrapper.appendChild(this.textarea);
+    }
+
+    /**
+     * @protected
+     */
+
+  }, {
+    key: "createOverlay",
+    value: function createOverlay() {
+      this.overlay = document.createElement("div");
+      this.overlay.className = "textoverlay";
+      setStyle(this.overlay, css.overlay);
+      this.copyTextareaStyle(this.overlay, properties.overlay);
+      this.wrapper.insertBefore(this.overlay, this.textarea);
+    }
+  }, {
     key: "destroy",
     value: function destroy() {
       this.textarea.removeEventListener("input", this.handleInput);
       this.textarea.removeEventListener("scroll", this.handleScroll);
       this.observer.disconnect();
-
-      (0, _setStyle2.default)(this.textarea, this.origStyle);
-
       this.overlay.remove();
-      this.textarea.remove();
+      setStyle(this.textarea, this.textareaStyleWas);
       var parentElement = this.wrapper.parentElement;
       if (parentElement) {
         parentElement.insertBefore(this.textarea, this.wrapper);
@@ -236,7 +234,7 @@ var Textoverlay = function () {
   }, {
     key: "update",
     value: function update() {
-      var _this = this;
+      var _this2 = this;
 
       // Remove all child nodes from overlay.
       while (this.overlay.firstChild) {
@@ -244,7 +242,7 @@ var Textoverlay = function () {
       }
 
       this.computeOverlayNodes().forEach(function (node) {
-        return _this.overlay.appendChild(node);
+        return _this2.overlay.appendChild(node);
       });
     }
 
@@ -257,9 +255,9 @@ var Textoverlay = function () {
   }, {
     key: "sync",
     value: function sync() {
-      (0, _setStyle2.default)(this.overlay, { top: -this.textarea.scrollTop + "px" });
+      this.overlay.style.top = -this.textarea.scrollTop + "px";
       var props = this.wrapperDisplay === "block" ? ["height"] : ["height", "width"];
-      (0, _setStyle2.default)(this.wrapper, (0, _getStyle2.default)(this.textarea, props));
+      this.copyTextareaStyle(this.wrapper, props);
     }
 
     /**
@@ -271,28 +269,29 @@ var Textoverlay = function () {
     value: function computeOverlayNodes() {
       return this.strategies.reduce(function (ns, strategy) {
         var highlight = document.createElement("span");
-        (0, _setStyle2.default)(highlight, strategy.css);
-        return (0, _flatten2.default)(ns.map(function (node) {
-          if (!(node instanceof Text)) {
+        setStyle(highlight, strategy.css);
+        return Array.prototype.concat.apply([], ns.map(function (node) {
+          if (node.nodeType != Node.TEXT_NODE) {
             return node;
           }
           var text = node.textContent;
           var resp = [];
-          for (var prevIndex = strategy.match.lastIndex = 0;; prevIndex = strategy.match.lastIndex) {
+          while (true) {
+            var prevIndex = strategy.match.lastIndex;
             var _match = strategy.match.exec(text);
             if (!_match) {
-              resp.push(new Text(text.substr(prevIndex)));
+              resp.push(document.createTextNode(text.slice(prevIndex)));
               break;
             }
             var str = _match[0];
-            resp.push(new Text(text.substr(prevIndex, strategy.match.lastIndex - prevIndex - str.length)));
+            resp.push(document.createTextNode(text.slice(prevIndex, strategy.match.lastIndex - str.length)));
             var span = highlight.cloneNode();
             span.textContent = str;
             resp.push(span);
           }
           return resp;
         }));
-      }, [new Text(this.textarea.value)]);
+      }, [document.createTextNode(this.textarea.value)]);
     }
   }, {
     key: "handleInput",
@@ -309,125 +308,31 @@ var Textoverlay = function () {
     value: function handleResize() {
       this.render(true);
     }
+
+    /**
+     * @private
+     */
+
+  }, {
+    key: "copyTextareaStyle",
+    value: function copyTextareaStyle(target, keys) {
+      var _this3 = this;
+
+      keys.forEach(function (key) {
+        target.style.setProperty(key, _this3.textareaStyle.getPropertyValue(key));
+      });
+    }
   }]);
 
   return Textoverlay;
 }();
 
-exports.default = Textoverlay;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-
-var _textoverlay = __webpack_require__(0);
-
-var _textoverlay2 = _interopRequireDefault(_textoverlay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-global.Textoverlay = _textoverlay2.default;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = flatten;
-
-
-/**
- * Function for flattening a nested array.
- */
-function flatten(array) {
-  return array.reduce(function (acc, element) {
-    if (element instanceof Array) {
-      flatten(element).forEach(function (e) {
-        return acc.push(e);
-      });
-    } else {
-      acc.push(element);
-    }
-    return acc;
-  }, []);
-}
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = getStyle;
-
-
-/**
- * Get style of the given properties
- */
-function getStyle(element, properties) {
-  var cssStyleDeclaration = window.getComputedStyle(element);
-  return properties.reduce(function (acc, property) {
-    acc[property] = cssStyleDeclaration.getPropertyValue(property);
-    return acc;
-  }, {});
-}
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = setStyle;
-
-
 /**
  * Set style to the element.
  */
+
+
+exports.default = Textoverlay;
 function setStyle(element, style) {
   Object.keys(style).forEach(function (key) {
     element.style.setProperty(key, style[key]);
@@ -435,5 +340,6 @@ function setStyle(element, style) {
 }
 
 /***/ })
-/******/ ]);
+/******/ ])["default"];
+});
 //# sourceMappingURL=bundle.js.map
