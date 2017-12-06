@@ -91,7 +91,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * textoverlay.js - Simple decorator for textarea elements
  *
- * @author Yuku Takahashi <taka84u9@gmil.com>
+ * @author Yuku Takahashi <taka84u9@gmail.com>
  * 
  */
 
@@ -256,8 +256,13 @@ var Textoverlay = function () {
     key: "sync",
     value: function sync() {
       this.overlay.style.top = -this.textarea.scrollTop + "px";
-      var props = this.wrapperDisplay === "block" ? ["height"] : ["height", "width"];
-      this.copyTextareaStyle(this.wrapper, props);
+      // In IE11, dimensions returned by `getComputedStyle` do not take `box-sizing` into account.
+      // We use `getBoundingClientRect` instead as a workaround.
+      var boundingRect = this.wrapper.getBoundingClientRect();
+      this.wrapper.style.height = boundingRect.height + "px";
+      if (this.wrapperDisplay !== "block") {
+        this.wrapper.style.width = boundingRect.width + "px";
+      }
     }
 
     /**

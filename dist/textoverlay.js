@@ -2,13 +2,13 @@
  * textoverlay.js - Simple decorator for textarea elements
  *
  * @author Yuku Takahashi <taka84u9@gmail.com>
- * @flow
+ * 
  */
 
 const css = {
   wrapper: {
     "box-sizing": "border-box",
-    overflow: "hidden",
+    overflow: "hidden"
   },
   overlay: {
     "box-sizing": "border-box",
@@ -19,7 +19,7 @@ const css = {
     "white-space": "pre-wrap",
     "word-wrap": "break-word",
     overflow: "hidden",
-    width: "100%",
+    width: "100%"
   },
   textarea: {
     background: "transparent",
@@ -28,67 +28,19 @@ const css = {
     position: "relative",
     height: "100%",
     width: "100%",
-    margin: "0px",
-  },
+    margin: "0px"
+  }
 };
 
 // Firefox does not provide shorthand properties in getComputedStyle, so we use the expanded ones here.
 const properties = {
-  wrapper: [
-    "background-attachment",
-    "background-blend-mode",
-    "background-clip",
-    "background-color",
-    "background-image",
-    "background-origin",
-    "background-position",
-    "background-position-x",
-    "background-position-y",
-    "background-repeat",
-    "background-size",
-    "display",
-    "margin-top",
-    "margin-right",
-    "margin-bottom",
-    "margin-left",
-  ],
-  overlay: [
-    "font-family",
-    "font-size",
-    "font-weight",
-    "line-height",
-    "padding-top",
-    "padding-right",
-    "padding-bottom",
-    "padding-left",
-    "border-top-width",
-    "border-right-width",
-    "border-bottom-width",
-    "border-left-width",
-  ],
-};
-
-export type Strategy = {
-  match: RegExp;
-  css: { [string]: string };
+  wrapper: ["background-attachment", "background-blend-mode", "background-clip", "background-color", "background-image", "background-origin", "background-position", "background-position-x", "background-position-y", "background-repeat", "background-size", "display", "margin-top", "margin-right", "margin-bottom", "margin-left"],
+  overlay: ["font-family", "font-size", "font-weight", "line-height", "padding-top", "padding-right", "padding-bottom", "padding-left", "border-top-width", "border-right-width", "border-bottom-width", "border-left-width"]
 };
 
 export default class Textoverlay {
-  strategies: Strategy[];
-  observer: MutationObserver;
-  wrapperDisplay: string;
 
-  overlay: HTMLDivElement;
-  textarea: HTMLTextAreaElement;
-  textareaStyle: CSSStyleDeclaration;
-  textareaStyleWas: { [string]: string };
-  wrapper: HTMLDivElement;
-
-  handleInput: () => void;
-  handleResize: () => void;
-  handleScroll: () => void;
-
-  constructor(textarea: HTMLTextAreaElement, strategies: Strategy[]) {
+  constructor(textarea, strategies) {
     if (!textarea.parentElement) {
       throw new Error("textarea must be in the DOM tree");
     }
@@ -113,7 +65,7 @@ export default class Textoverlay {
     this.observer = new MutationObserver(this.handleResize);
     this.observer.observe(this.textarea, {
       attributes: true,
-      attributeFilter: ["style"],
+      attributeFilter: ["style"]
     });
 
     this.wrapperDisplay = this.wrapper.style.display;
@@ -127,9 +79,8 @@ export default class Textoverlay {
     this.wrapper = document.createElement("div");
     this.wrapper.className = "textoverlay-wrapper";
     setStyle(this.wrapper, css.wrapper);
-    this.wrapper.style.position =
-        this.textareaStyle.position === "static" ? "relative" : this.textareaStyle.position;
-    const parentElement: Element = (this.textarea.parentElement: any);
+    this.wrapper.style.position = this.textareaStyle.position === "static" ? "relative" : this.textareaStyle.position;
+    const parentElement = this.textarea.parentElement;
     parentElement.insertBefore(this.wrapper, this.textarea);
     this.wrapper.appendChild(this.textarea);
   }
@@ -161,7 +112,7 @@ export default class Textoverlay {
   /**
    * Public API to update and sync textoverlay
    */
-  render(skipUpdate: boolean = false) {
+  render(skipUpdate = false) {
     if (!skipUpdate) {
       this.update();
     }
@@ -194,19 +145,21 @@ export default class Textoverlay {
     const boundingRect = this.wrapper.getBoundingClientRect();
     this.wrapper.style.height = `${boundingRect.height}px`;
     if (this.wrapperDisplay !== "block") {
-        this.wrapper.style.width = `${boundingRect.width}px`;
+      this.wrapper.style.width = `${boundingRect.width}px`;
     }
   }
 
   /**
    * @private
    */
-  computeOverlayNodes(): Node[] {
-    return this.strategies.reduce((ns: Node[], strategy) => {
+  computeOverlayNodes() {
+    return this.strategies.reduce((ns, strategy) => {
       const highlight = document.createElement("span");
       setStyle(highlight, strategy.css);
       return Array.prototype.concat.apply([], ns.map(node => {
-        if (node.nodeType != Node.TEXT_NODE) { return node; }
+        if (node.nodeType != Node.TEXT_NODE) {
+          return node;
+        }
         const text = node.textContent;
         const resp = [];
         while (true) {
@@ -242,7 +195,7 @@ export default class Textoverlay {
   /**
    * @private
    */
-  copyTextareaStyle(target: HTMLElement, keys: string[]) {
+  copyTextareaStyle(target, keys) {
     keys.forEach(key => {
       target.style.setProperty(key, this.textareaStyle.getPropertyValue(key));
     });
@@ -252,7 +205,7 @@ export default class Textoverlay {
 /**
  * Set style to the element.
  */
-function setStyle(element: HTMLElement, style: { [string]: string }) {
+function setStyle(element, style) {
   Object.keys(style).forEach(key => {
     element.style.setProperty(key, style[key]);
   });

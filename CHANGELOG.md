@@ -7,6 +7,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+## [0.2.0] - 2017-12-06
+### Added
+- Distribute a native module version
+
+### Fixed
+- Fix IE11 compatibility
 
 ## [0.1.5] - 2017-12-05
 ### Fixed
@@ -33,7 +39,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/yuku-t/textoverlay/compare/v0.1.5...HEAD
+[Unreleased]: https://github.com/yuku-t/textoverlay/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/yuku-t/textoverlay/compare/v0.1.5...v0.2.0
 [0.1.5]: https://github.com/yuku-t/textoverlay/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/yuku-t/textoverlay/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/yuku-t/textoverlay/compare/v0.1.2...v0.1.3
