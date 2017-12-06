@@ -1,19 +1,28 @@
 {
-  "plugins": [
-    "transform-flow-strip-types",
-    "transform-object-assign"
-  ],
-  "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "browsers": [
-            "last 2 versions",
-            "IE >= 9"
-          ]
-        }
-      }
-    ]
-  ]
+  "env": {
+    "development": {
+      "plugins": [
+        "transform-flow-strip-types",
+        "transform-object-assign"
+      ],
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": [
+                "last 2 versions",
+                "IE >= 9"
+              ]
+            }
+          }
+        ]
+      ]
+    },
+    "es-next": {
+      "plugins": [
+        "transform-flow-strip-types"
+      ]
+    }
+  }
 }
