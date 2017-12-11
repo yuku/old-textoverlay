@@ -4,28 +4,45 @@ const path = require("path");
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
 
+// We only use Webpack to compile an ES5 version of textoverlay that
+// exports itself to the `Textoverlay` global.
 const defaultConfig = {
   devtool: "source-map",
+  context: path.join(__dirname, "src"),
   entry: {
-    textoverlay: "./src/textoverlay.js",
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ["babel-loader"],
-      },
-    ],
+    textoverlay: "./textoverlay.ts",
   },
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "textoverlay.es5.js",
     libraryTarget: "umd",
     // `library` determines the name of the global variable
     library: "Textoverlay",
     libraryExport: "default"
   },
+  resolve: {
+    extensions: [".ts"]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        loaders: [
+          "babel-loader",
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+              compilerOptions: {
+                // Declarations are already produced when building the non-ES5 version.
+                "declaration": false,
+              }
+            }
+          }],
+        exclude: /node_modules/
+      },
+    ],
+  }
 };
 
 module.exports = function(env) {
@@ -33,7 +50,7 @@ module.exports = function(env) {
     case "min":
       return webpackMerge(defaultConfig, {
         output: {
-          filename: "bundle.min.js",
+          filename: "textoverlay.es5.min.js",
         },
         plugins: [
           new webpack.DefinePlugin({
