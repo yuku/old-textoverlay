@@ -1,6 +1,6 @@
 {
   "name": "textoverlay",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Simple decorator for textarea elements",
   "main": "./dist/textoverlay.js",
   "types": "./dist/textoverlay.d.ts",

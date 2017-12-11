@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+
+## [0.3.0] - 2017-12-11
 ### Added
 - Typescript definitions.
 
@@ -46,6 +48,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 - Initial release.
 
 [Unreleased]: https://github.com/yuku-t/textoverlay/compare/v0.2.0...HEAD
+[0.3.0]: https://github.com/yuku-t/textoverlay/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/yuku-t/textoverlay/compare/v0.1.5...v0.2.0
 [0.1.5]: https://github.com/yuku-t/textoverlay/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/yuku-t/textoverlay/compare/v0.1.3...v0.1.4
