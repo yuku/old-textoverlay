@@ -1,2 +1,10 @@
 @import "../../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "../../node_modules/highlight.js/styles/zenburn.css";
+
+body {
+  background-color: #f4f6f8;
+}
+
+#textarea {
+  background-color: #FAFAFA;
+}
