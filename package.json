@@ -10,7 +10,7 @@
     "build": "yarn run clean && run-s format lint && run-p build:*",
     "build:dist": "run-p build:dist:*",
     "build:dist:es2015": "tsc",
-    "build:dist:es5": "webpack && webpack --env=min",
+    "build:dist:es5": "webpack --env=min",
     "build:docs": "run-p build:docs:*",
     "build:docs:html": "pug src/docs --out docs",
     "build:docs:js": "webpack --config webpack.config.docs.js",
