@@ -11,32 +11,25 @@ export interface CssStyle {
 }
 export default class Textoverlay {
     strategies: Strategy[];
-    observer: MutationObserver;
-    wrapperDisplay: string;
-    overlay: HTMLDivElement;
-    textarea: HTMLTextAreaElement;
-    textareaStyle: CSSStyleDeclaration;
-    textareaStyleWas: CssStyle;
-    wrapper: HTMLDivElement;
+    readonly backdrop: HTMLDivElement;
+    readonly overlay: HTMLDivElement;
+    readonly textarea: HTMLTextAreaElement;
+    private overlayPositioner;
+    private textareaStyle;
+    private textareaStyleWas;
+    private observer;
+    private resizeListener;
     constructor(textarea: HTMLTextAreaElement, strategies: Strategy[]);
     destroy(): void;
     /**
      * Public API to update and sync textoverlay
      */
     render(skipUpdate?: boolean): void;
-    protected createWrapper(): void;
-    protected createOverlay(): void;
-    /**
-     * Update contents of textoverlay
-     */
-    private update();
-    /**
-     * Sync scroll and size of textarea
-     */
-    private sync();
+    private updateOverlayNodes();
+    private syncStyles();
+    private setOverlayScroll(textareaScrollTop);
     private computeOverlayNodes();
     private handleInput();
     private handleScroll();
-    private handleResize();
     private copyTextareaStyle(target, keys);
 }
