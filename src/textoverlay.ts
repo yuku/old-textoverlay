@@ -166,7 +166,7 @@ export default class Textoverlay {
     });
   }
 
-  private syncStyles(syncZIndex = true) {
+  private syncStyles() {
     // All the reads must happen before all the writes to prevent layout
     // thrashing, because every write means all subsequenet reads' caches are
     // invalidated.
