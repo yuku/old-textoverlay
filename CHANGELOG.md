@@ -7,6 +7,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Added
+- Typescript definitions.
+
+### Fixed
+- Various layout issues, including #14, #15, #16.
+
 ## [0.2.0] - 2017-12-06
 ### Added
 - Distribute a native module version
