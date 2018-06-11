@@ -70,7 +70,9 @@ export interface Matcher {
 }
 
 // Can't use `keyof CSSStyleDeclaration` because it only has camelCase keys.
-export interface CssStyle { [cssProperty: string]: string; }
+export interface CssStyle {
+  [cssProperty: string]: string;
+}
 
 export default class Textoverlay {
   public strategies: Strategy[];

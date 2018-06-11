@@ -3,11 +3,13 @@
 const path = require("path");
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-const extractCSS = new ExtractTextPlugin("[name].css");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
+  plugins: [
+    new MiniCssExtractPlugin()
+  ],
   devtool: "source-map",
   devServer: {
     contentBase: "docs",
@@ -34,13 +36,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: extractCSS.extract({
-          fallback: "style-loader",
-          use: [
-            "css-loader?importLoaders=1",
-            "postcss-loader",
-          ],
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader?importLoaders=1",
+          "postcss-loader",
+        ],
       },
     ],
   },
@@ -48,30 +48,26 @@ module.exports = {
     path: path.join(__dirname, "docs"),
     filename: "bundle.js",
   },
-  plugins: [
-    extractCSS,
-    new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      mangle: {
-        // We do not use Function.prototype.name.
-        keep_fnames: false,
-        // We do not support IE8.
-        screw_ie8: true,
-      },
-      compress: {
-        // We do not use Function.length.
-        keep_fargs: false,
-        // We do not use Function.prototype.name.
-        keep_fnames: false,
-        // We do not support IE8.
-        screw_ie8: true,
-      },
-      comments: false,
-      sourceMap: true,
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false,
-    }),
-  ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        sourceMap: true,
+        uglifyOptions: {
+          beautify: false,
+          mangle: {
+            // We do not use Function.prototype.name.
+            keep_fnames: false,
+          },
+          compress: {
+            // We do not use Function.length.
+            keep_fargs: false,
+            // We do not use Function.prototype.name.
+            keep_fnames: false,
+          },
+          comments: false,
+        }
+      })
+    ]
+  },
 };

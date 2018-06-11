@@ -3,6 +3,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 // We only use Webpack to compile an ES5 version of textoverlay that
 // exports itself to the `Textoverlay` global.
@@ -45,9 +46,9 @@ const defaultConfig = {
   }
 };
 
-module.exports = function(env) {
-  switch (env) {
-    case "min":
+module.exports = function(env, argv) {
+  switch (argv.mode) {
+    case "production":
       return webpackMerge(defaultConfig, {
         output: {
           filename: "textoverlay.es5.min.js",
@@ -56,34 +57,31 @@ module.exports = function(env) {
           new webpack.DefinePlugin({
             "process.env.NODE_ENV": JSON.stringify("production"),
           }),
-          new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            mangle: {
-              // We do not use Function.prototype.name.
-              keep_fnames: false,
-              // We do not support IE8.
-              screw_ie8: true,
-            },
-            compress: {
-              // We do not use Function.length.
-              keep_fargs: false,
-              // We do not use Function.prototype.name.
-              keep_fnames: false,
-              // We do not support IE8.
-              screw_ie8: true,
-            },
-            comments: false,
-            sourceMap: true,
-          }),
-          new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false,
-          }),
         ],
+        optimization: {
+          minimize: true,
+          minimizer: [
+            new UglifyJsPlugin({
+              sourceMap: true,
+              uglifyOptions: {
+                beautify: false,
+                mangle: {
+                  // We do not use Function.prototype.name.
+                  keep_fnames: false,
+                },
+                compress: {
+                  // We do not use Function.length.
+                  keep_fargs: false,
+                  // We do not use Function.prototype.name.
+                  keep_fnames: false,
+                },
+                comments: false,
+              }
+            })
+          ]
+        },
       });
     default:
       return defaultConfig;
   }
-
-  throw `Unknown env ${env}`;
 };

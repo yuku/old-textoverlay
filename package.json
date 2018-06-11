@@ -10,15 +10,15 @@
     "build": "yarn run clean && run-s format lint && run-p build:*",
     "build:dist": "run-p build:dist:*",
     "build:dist:es2015": "tsc",
-    "build:dist:es5": "webpack --env=min",
+    "build:dist:es5": "webpack --mode=production",
     "build:docs": "run-p build:docs:*",
     "build:docs:html": "pug src/docs --out docs",
-    "build:docs:js": "webpack --config webpack.config.docs.js",
+    "build:docs:js": "webpack --config webpack.config.docs.js --mode production",
     "clean": "rm -fr dist/*.js dist/*.d.ts dist/*.map docs/*.*",
     "dev": "run-p dev:*",
     "dev:docs": "run-p dev:docs:*",
     "dev:docs:html": "pug src/docs --out docs --watch",
-    "dev:docs:js": "webpack-dev-server -d --config webpack.config.docs.js",
+    "dev:docs:js": "webpack-dev-server -d --config webpack.config.docs.js --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -44,8 +44,8 @@
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-plugin-flowtype": "^2.49.3",
-    "extract-text-webpack-plugin": "^3.0.2",
     "highlight.js": "^9.10.0",
+    "mini-css-extract-plugin": "^0.4.0",
     "npm-run-all": "^4.1.3",
     "postcss-apply": "^0.10.0",
     "postcss-custom-media": "^6.0.0",
@@ -61,6 +61,7 @@
     "typescript": "^2.9.1",
     "uglify-js": "^3.4.0",
     "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.3",
     "webpack-dev-server": "^3.1.4",
     "webpack-merge": "^4.1.2"
   }
