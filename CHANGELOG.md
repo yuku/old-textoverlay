@@ -8,8 +8,12 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
 
-## [0.3.1] - 2018-06-11
+## [0.3.2] - 2018-06-11
+### Fixed
+- Performance improvements.
 
+## [0.3.1] - 2018-06-11
+### Fixed
 - Fixes `RangeError: Maximum call stack size exceeded` when there are a lot of
   nodes and strategies. #21
 

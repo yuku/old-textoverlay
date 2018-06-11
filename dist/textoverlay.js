@@ -120,9 +120,7 @@ export default class Textoverlay {
     }
     updateOverlayNodes() {
         // Remove all child nodes from overlay.
-        while (this.overlay.firstChild) {
-            this.overlay.removeChild(this.overlay.firstChild);
-        }
+        this.overlay.innerHTML = '';
         this.overlayPositioner = document.createElement('div');
         this.overlayPositioner.className = 'textoverlay-positioner';
         this.overlayPositioner.style.display = 'block';
@@ -177,16 +175,26 @@ export default class Textoverlay {
                     const prevIndex = strategy.match.lastIndex;
                     const match = strategy.match.exec(text);
                     if (!match) {
-                        result.push(document.createTextNode(text.slice(prevIndex)));
+                        if (prevIndex === 0) {
+                            if (text) {
+                                result.push(node);
+                            }
+                        }
+                        else if (prevIndex < text.length) {
+                            result.push(document.createTextNode(text.slice(prevIndex)));
+                        }
                         break;
                     }
                     const str = match[0];
-                    if (text) {
-                        result.push(document.createTextNode(text.slice(prevIndex, strategy.match.lastIndex - str.length)));
+                    const textBetweenMatches = text.slice(prevIndex, strategy.match.lastIndex - str.length);
+                    if (textBetweenMatches) {
+                        result.push(document.createTextNode(textBetweenMatches));
                     }
-                    const span = highlight.cloneNode();
-                    span.textContent = str;
-                    result.push(span);
+                    if (str) {
+                        const span = highlight.cloneNode(false);
+                        span.textContent = str;
+                        result.push(span);
+                    }
                 }
             });
             return result;
