@@ -204,28 +204,31 @@ export default class Textoverlay {
     return this.strategies.reduce((ns: Node[], strategy) => {
       const highlight = document.createElement('span');
       setStyle(highlight, strategy.css);
-      return Array.prototype.concat.apply([], ns.map((node) => {
+      const result: Node[] = [];
+      ns.forEach((node) => {
         if (node.nodeType !== Node.TEXT_NODE) {
-          return node;
+          result.push(node);
+          return;
         }
         const text = node.textContent || '';
-        const resp = [];
         while (true) {
           const prevIndex = strategy.match.lastIndex;
           const match = strategy.match.exec(text);
           if (!match) {
-            resp.push(document.createTextNode(text.slice(prevIndex)));
+            result.push(document.createTextNode(text.slice(prevIndex)));
             break;
           }
           const str = match[0];
-          resp.push(document.createTextNode(
-              text.slice(prevIndex, strategy.match.lastIndex - str.length)));
+          if (text) {
+            result.push(document.createTextNode(
+                text.slice(prevIndex, strategy.match.lastIndex - str.length)));
+          }
           const span = highlight.cloneNode();
           span.textContent = str;
-          resp.push(span);
+          result.push(span);
         }
-        return resp;
-      }));
+      });
+      return result;
     }, [document.createTextNode(this.textarea.value)]);
   }
 
