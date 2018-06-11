@@ -1,3 +1,8 @@
+/**
+ * textoverlay.js - Simple decorator for textarea elements
+ *
+ * @author Yuku Takahashi <taka84u9@gmail.com>
+ */
 export interface Strategy {
     match: Matcher;
     css: CssStyle;
@@ -25,11 +30,11 @@ export default class Textoverlay {
      * Public API to update and sync textoverlay
      */
     render(skipUpdate?: boolean): void;
-    private updateOverlayNodes();
-    private syncStyles();
-    private setOverlayScroll(textareaScrollTop);
-    private computeOverlayNodes();
-    private handleInput();
-    private handleScroll();
-    private copyTextareaStyle(target, keys);
+    private updateOverlayNodes;
+    private syncStyles;
+    private setOverlayScroll;
+    private computeOverlayNodes;
+    private handleInput;
+    private handleScroll;
+    private copyTextareaStyle;
 }
