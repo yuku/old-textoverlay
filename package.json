@@ -23,14 +23,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yuku-t/textoverlay.git"
+    "url": "git+https://github.com/yuku/textoverlay.git"
   },
   "author": "Yuku Takahashi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yuku-t/textoverlay/issues"
+    "url": "https://github.com/yuku/textoverlay/issues"
   },
-  "homepage": "https://github.com/yuku-t/textoverlay#readme",
+  "homepage": "https://github.com/yuku/textoverlay#readme",
   "devDependencies": {
     "autoprefixer": "^8.6.2",
     "babel-cli": "^6.26.0",

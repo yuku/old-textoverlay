@@ -29,4 +29,4 @@ npm install textoverlay
 
 ## License
 
-Textoverlay is released under the [MIT](https://github.com/yuku-t/textoverlay/blob/master/LICENSE) License.
+Textoverlay is released under the [MIT](https://github.com/yuku/textoverlay/blob/master/LICENSE) License.
