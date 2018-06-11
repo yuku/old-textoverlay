@@ -6,7 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## [Unreleased]
+## [0.3.1] - 2018-06-11
+
+- Fixes `RangeError: Maximum call stack size exceeded` when there are a lot of
+  nodes and strategies. #21
 
 ## [0.3.0] - 2017-12-11
 ### Added
