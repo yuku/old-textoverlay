@@ -4,7 +4,7 @@ Simple decorator for textarea elements.
 
 ## Demo
 
-[![](http://yuku-t.com/textoverlay/media/demo.png)](http://yuku-t.com/textoverlay/#textarea)
+[![](http://yuku-t.com/textoverlay/media/demo.png)](https://yuku.github.io/textoverlay/#textarea)
 
 ```javascript
 new Textoverlay(document.getElementById("textarea"), [
@@ -19,7 +19,7 @@ new Textoverlay(document.getElementById("textarea"), [
 ]);
 ```
 
-[Live demo](http://yuku-t.com/textoverlay)
+[Live demo](http://yuku.github.io/textoverlay)
 
 ## Installation
 
